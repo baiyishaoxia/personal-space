@@ -1,0 +1,66 @@
+@charset "utf-8";
+
+/* 输入框 */
+.input-text-user{border:#D8D8D8 1px solid;border-radius:3px;width:282px;padding-left:40px;height:32px;line-height:32px;background:white url(../images/img.png) no-repeat 0px top;}
+.input-text-password{border:#D8D8D8 1px solid;border-radius:3px;width:282px;padding-left:40px;height:32px;line-height:32px;background:white url(../images/img.png) no-repeat 0px -50px;}
+.input-text-user.error{background:#FFD2D2 url(../images/img.png) no-repeat 0px top;border-width:3px;}
+.input-text-password.error{background:#FFD2D2 url(../images/img.png) no-repeat 0px -50px;border-width:3px;}
+.input-text-file{border:#D8D8D8 1px solid;border-radius:3px;width:282px;padding-left:40px;height:32px;line-height:32px;background:white url(../images/icon.jpg) no-repeat 0px -390px;}
+.input-text-email{border:#D8D8D8 1px solid;border-radius:3px;width:282px;padding-left:40px;height:32px;line-height:32px;background:white url(../images/icon.jpg) no-repeat 0px -350px;}
+.input-text-verify{border:#D8D8D8 1px solid;border-radius:3px;width:282px;padding-left:40px;height:32px;line-height:32px;background:white url(../images/icon.jpg) no-repeat 0px -115px;}
+/* 按钮 */
+.login-btn{display:block;background:url(../images/bg.png) repeat-x left top;width:325px;text-align:center;height:35px;line-height:35px;color:white;font-size:16px;border-radius:3px;border:1px solid #215A8D;}
+
+
+/* body */
+.loginbody{background:#D6E4FF;}
+
+
+
+/* 行 */
+
+.row{height:35px;line-height:22px;position:relative;}
+.row .relative-box{margin:0 10px 0 10px;}
+
+/* login*/
+.loginbox,.not-box{width:326px;margin:50px auto 100px auto;}
+.loginbox .logo-a,.not-box .logo-a{height:150px; text-align:center;}
+.loginbox .loginbox-title{background:#FFFFFF;height:70px;border-radius:3px 3px 0 0;}
+.loginbox .loginbox-title .logo{padding:12px 20px;}
+.loginbox .loginbox-title h3{color:#666666;padding:0 20px; line-height:50px;font-size:16px;border-bottom:1px solid #F2F2F2;}
+.loginbox .login-content{border:1px solid #CCCCCC;border-radius:3px;padding-bottom:20px;}
+.loginbox .login-content .text{width:330px;margin:0 auto;line-height:25px;}
+.loginbox .login-content .text h5{font-size:14px;}
+.loginbox .login-content{background:#FFFFFF;height:auto!important;min-height:100px;height:100px;font-size:14px;}
+.loginbox .login-content .row{width:330px;margin:0 auto;padding:20px 0;position:relative;}
+.loginbox .login-content .row .field{position:absolute;left:40px;top:23px;height:35px;line-height:35px;pointer-events:none;}
+.loginbox .login-content .tips{padding:5px 0;height:25px;font-size:14px;}
+.loginbox .login-content .tips input{margin-right:5px;}
+.loginbox .login-content .btnArea{padding:0;margin:15px auto 5px auto;}
+.loginbox .login-content .row .noPic{background-image:none;padding:0 15px;width:300px;height:34px;line-height:34px;}
+.go-regist{text-align:center;height:80px;line-height:80px;}
+.btnArea .abtn{font-size:14px;padding:0 30px;}
+a.link,.go-regist a,.loginbox label a{color:#006DA7; cursor:pointer; line-height:25px;}
+.login-error{display:none;width:330px;margin:0 auto;color:red;}
+.tipsResults{display:none;padding:30px 50px; text-align:center;}
+.tipsResults a{color:#5277A4;}
+.loginbox .autosuggest{position:absolute;left:0;top:54px;z-index:1000;}
+.loginbox .autosuggest li{width:320px;padding:5px 5px;border-bottom:1px solid #CCCCCC;}
+
+/*span属性*/
+.pb{
+	margin-bottom:50px; 
+}
+
+/*自定义属性*/
+.loginbox .loginbox-title {
+    background: #FFFFFF;
+    height: 50px;
+    border-radius: 3px 3px 0 0;
+}
+.loginbox .login-content .row {
+    width: 330px;
+    margin: 0 auto;
+    padding: 13px 0;
+    position: relative;
+}
