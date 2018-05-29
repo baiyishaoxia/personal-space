@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+{include file='../Public/meta.html'}
+<link href="{$smarty.const.CSS_DIR}/base.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/about.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/media.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="{$smarty.const.JS_DIR}/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="ibody">
+  {include file='../Public/header.html'}
+  <article>
+    <h3 class="about_h">您现在的位置是：<a href="/">首页</a>>
+	<a href="index.php?p=Home&c=SinglePage&a=index&page_id=1">{$pageInfo.title}</a></h3>
+    <div class="about">
+      {$pageInfo.content}
+    </div>
+  </article>
+  <aside>
+
+   {include file='../Public/about.html'}
+
+
+    <div class="about_c">
+      <p>网名：{$masterInfo.nickname}</p>
+      <p>职业：{$masterInfo.job}</p>
+      <p>籍贯：{$masterInfo.home}</p>
+      <p>电话：{$masterInfo.tel}</p>
+      <p>邮箱：{$masterInfo.email}</p>
+    </div>
+    {include file='../Public/copyright.html'}
+  </aside>
+  <script src="{$smarty.const.JS_DIR}/silder.js"></script>
+  <div class="clear"></div>
+  <!-- 清除浮动 --> 
+</div>
+</body>
+</html>

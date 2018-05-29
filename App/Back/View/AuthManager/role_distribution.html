@@ -1,0 +1,51 @@
+{include file='../Public/public.html'}
+<div class="admin">
+  <div class="tab">
+    <div class="tab-head"> <strong>角色管理</strong>
+      <ul class="tab-nav">
+        <li class="active"><a href="#tab-set">分配权限【{$roleInfo.role_name}】</a></li>
+      </ul>
+    </div>
+    <div class="tab-body"> <br />
+      <div class="tab-panel active" id="tab-set">
+        <form method="POST" class="form-x" action="index.php?p=Back&c=AuthManager&a=distribute">
+
+          <input type="hidden" name="role_id" value="{$roleInfo.role_id}">
+          <table width="100%" >
+             <input type="button" class="button button-small checkall" name="checkall" checkfor="auth_id[]" value="全选" />
+          	{foreach $auth_infoA as $k => $v}
+              <tr style="border:1px solid gray"">
+                   <td width="18%">
+                   	<input type="checkbox" name="auth_id[]" value="{$v.auth_id}" 
+                      {if in_array($v.auth_id,$have_authids)} checked="checked" {/if}
+                   	/>{$v.auth_name}</td>
+                   <td>
+                   	     {foreach $auth_infoB as $kk => $vv}
+                   	     {if $vv.auth_pid === $v.auth_id}
+                         <div style="width: 200px;float:left;">
+                              <input type="checkbox" name="auth_id[]" value="{$vv.auth_id}"
+                              {if in_array($vv.auth_id,$have_authids)} checked="checked" {/if}
+                              />{$vv.auth_name}
+                         </div>
+                         {/if}
+                         {/foreach}
+                   </td>
+              </tr>
+              {/foreach}
+          </table>
+
+          <div style="margin-top: 10px">
+            <button class="button bg-main" type="submit" align="center">分配权限</button>
+          </div>
+
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <div style='height:20px; border-bottom:1px #DDD solid'></div>
+  <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

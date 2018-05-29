@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+{include file='../Public/meta.html'}
+<link href="{$smarty.const.CSS_DIR}/base.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/style.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/index.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/media.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="{$smarty.const.JS_DIR}/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="ibody">
+  {include file='../Public/header.html'}
+  <article>
+    <h2 class="about_h">您现在的位置是：<a href="/">首页</a>
+    {foreach from=$list item='row' key='key'}
+    ><a href="index.php?p=Home&c=Article&a=index&cate_id={$key}">{$row}</a>
+    {/foreach}
+    </h2>
+    <div class="bloglist">
+    {foreach from=$artInfo item='row'}
+      <div class="blogs2">
+        <ul>
+          <h3><a href="index.php?p=Home&c=Article&a=show&art_id={$row.art_id}#trips{$row.art_id}" name="tipsArticle{$key}">{$row.title}</a></h3>
+          <div class="autor"><span>作者:{$row.author}</span>|<span>分类:[<a href="index.php?p=Home&c=Article&a=index&cate_id={$row.cate_id}">{$row.cate_name}</a>]</span>|<span>浏览（<a href="/">{$row.hits}</a>）</span>
+          日期：{($row.addtime)|date_format:'%Y-%m-%d %T'}
+          </div>
+          <p>{$row.content|strip_tags|truncate:150:'...'}<a href="index.php?p=Home&c=Article&a=show&art_id={$row.art_id}" target="_blank" class="readmore">全文</a></p>
+        </ul>
+        {if $row.thumb eq 'default.jpg'} <figure><img src="{IMAGES_DIR}/00{math equation=rand(1,8)}.jpg"></figure>
+        {elseif $row.thumb neq 'default.jpg'}<figure><img src="/Uploads/thumb/{$row.thumb}" ></figure>
+        {/if}
+      </div>
+      {foreachelse}
+      <div class="newblog">
+      	该分类下暂无文章
+      </div>
+    {/foreach}
+    </div>
+    <div class="page">{$strPage}</div>
+  </article>
+  {include file='../Public/aside.html'}
+  <script src="{$smarty.const.JS_DIR}/silder.js"></script>
+  <div class="clear"></div>
+  <!-- 清除浮动 --> 
+</div>
+</body>
+</html>

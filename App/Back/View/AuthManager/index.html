@@ -1,0 +1,57 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnRole按钮
+		$('#btnRole').bind('click',function(){
+			// 设置“角色管理”链接
+			window.location.href = 'index.php?p=Back&c=AuthManager&a=role';
+		});
+	});
+    //定义页面载入事件
+    $(function(){
+        //获取btnAdd按钮
+        $('#btnAdd').bind('click',function(){
+            // 设置“回收站”链接
+            window.location.href = 'index.php?p=Back&c=AuthManager&a=addAdmin';
+        });
+    });
+</script>
+<div class="admin">
+	<form action="index.php?p=Back&c=AuthManager&a=authList" method="POST">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>管理员列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="admin_id[]" value="全选" />
+            <input type="button" id="btnRole" class="button button-small border-green" value="角色管理" />
+            <input type="submit" class="button button-small border-yellow"  value="权限列表" onclick=" return confirm('确认进入权限列表吗?')" />
+            <input type="button" id="btnAdd" class="button border-blue button-small" value="添加管理员" />
+        </div>
+        <table class="table table-hover">
+        	<tr>
+                <th width="45">选择</th>
+                <th width="120">管理员ID</th>
+                <th width="200">用户名</th>
+                <th width="200">当前充当角色</th>
+                <th width="100">操作</th>
+            </tr>
+            {foreach from=$AdminInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="admin_id[]" value="{$row.admin_id}" /></td>
+                <td>{$row.admin_id}</td>
+                <td>{$row.admin_name}</td>
+                 <td>{$row.role_name|default:'超级管理员'}</td>
+                <td>
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=AuthManager&a=editAdmin&admin_id={$row.admin_id}">修改</a> 
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=AuthManager&a=delAdmin&admin_id={$row.admin_id}" onclick="return confirm('确认删除吗?')">删除</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+    </div>
+    </form>
+    <br />
+    <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

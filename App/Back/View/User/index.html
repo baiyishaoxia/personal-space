@@ -1,0 +1,63 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnAdd按钮
+		$('#btnAdd').bind('click',function(){
+			// 设置“添加用户”链接
+			window.location.href = 'index.php?p=Back&c=User&a=add';
+		});
+	});
+</script>
+<div class="admin">
+	<form action="index.php?p=Back&c=User&a=delAll" method="POST">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>用户列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="user_id[]" value="全选" />
+            <input type="button" id="btnAdd" class="button button-small border-green" value="添加用户" />
+            <input type="submit" class="button button-small border-yellow"  value="批量删除" onclick=" return confirm('确认全部删除吗?')" />
+        </div>
+        <table class="table table-hover">
+        	<tr>
+                <th width="50">选择</th>
+                <th width="80">用户ID</th>
+                <th width="60">用户名</th>
+				<th width="60">用户密码(md5加密后)</th>
+                <th width="100">邮箱</th>
+				<th width="80">用户头像</th>
+                <th width="180">注册时间</th>
+                <th width="120">操作 状态</th>
+            </tr>
+
+            {foreach from=$userInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="user_id[]" value="{$row.user_id}" /></td>
+                <td>{$row.user_id}</td>
+                <td>{$row.user_name}</td> 
+				<td>{$row.user_pass}</td>
+                <td>{$row.user_email|default:'暂未设置'}</td>
+				<td><img src="/Uploads/user/{$row.user_thumb}" width="40" height="40px"/></td>
+
+				<td>{($row.user_time)|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+                <td>
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=User&a=del&user_id={$row.user_id}" onclick="return confirm('确认删除吗?')">删除</a>
+                    {if $row.user_type == '1'}
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=User&a=ifUserBlack&user_id={$row.user_id}&is_type={$row.user_type}&pageNum={$smarty.get.pageNum|default:1}">已停用</a> 
+                    {else}
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=User&a=ifUserBlack&user_id={$row.user_id}&is_type={$row.user_type}&pageNum={$smarty.get.pageNum|default:1}">正常</a> 
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+		<div class="panel-foot text-center">
+            {$strPage}
+        </div>
+    </div>
+    </form>
+    <br />
+    <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

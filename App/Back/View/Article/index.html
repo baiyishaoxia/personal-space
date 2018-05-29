@@ -1,0 +1,73 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnAdd按钮
+		$('#btnAdd').bind('click',function(){
+			// 设置“添加文章”链接
+			window.location.href = 'index.php?p=Back&c=Article&a=add';
+		});
+	});
+    //定义页面载入事件
+    $(function(){
+        //获取btnRecycle按钮
+        $('#btnRecycle').bind('click',function(){
+            // 设置“回收站”链接
+            window.location.href = 'index.php?p=Back&c=Article&a=recycle';
+        });
+    });
+</script>
+
+<div class="admin">
+	<form action="index.php?p=Back&c=Article&a=delAll" method="POST">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>文章列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="art_id[]" value="全选" />
+            <input type="button" id="btnAdd" class="button button-small border-green" value="添加文章" />
+            <input type="submit" class="button button-small border-yellow"  value="批量删除" onclick=" return confirm('确认全部删除吗?')" />
+            <input type="button" id="btnRecycle" class="button button-small border-blue" value="回收站" />
+        </div>
+        <table class="table table-hover">
+        	<tr>
+                <th width="45">选择</th>
+                <th width="120">所属类别</th>
+                <th width="150">文章标题</th>
+				<th width="120">缩略图</th>
+                <th width="80">点击率</th>
+                <th width="180">发布时间</th>
+                <th width="100">是否推荐</th>
+                <th width="100">操作</th>
+            </tr>
+            {foreach from=$artInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="art_id[]" value="{$row.art_id}" /></td>
+                <td>{$row.cate_name}</td>
+                <td>{$row.title|truncate:10}</td> <!--截取标题前10个-->
+				<td><img src="/Uploads/thumb/{$row.thumb}" width="60"/></td>
+                <td >{$row.hits}次</td>
+                <td>{($row.addtime)|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+                <td>
+                    {if $row.is_recommend == '1'}
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=Article&a=ifRecommend&art_id={$row.art_id}&is_recommend={$row.is_recommend}&pageNum={$smarty.get.pageNum|default:1}">已推荐</a> 
+                    {else}
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=Article&a=ifRecommend&art_id={$row.art_id}&is_recommend={$row.is_recommend}&pageNum={$smarty.get.pageNum|default:1}">未推荐</a> 
+                    {/if}
+                </td>
+                <td>
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=Article&a=edit&art_id={$row.art_id}">修改</a> 
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=Article&a=del&art_id={$row.art_id}" onclick="return confirm('确认删除吗?')">删除</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+		<div class="panel-foot text-center">
+            {$strPage}
+        </div>
+    </div>
+    </form>
+    <br />
+    <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnAdd按钮
+		$('#btnAdd').bind('click',function(){
+			// 设置“添加链接”链接
+			window.location.href = 'index.php?p=Back&c=Friendship&a=add';
+		});
+	});
+</script>
+<script src="{$smarty.const.JS_DIR}/friendship.js"></script>
+<div class="admin">
+	<form action="index.php?p=Back&c=Friendship&a=delAll" method="POST">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>链接列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="frd_id[]" value="全选" />
+            <input type="button" id="btnAdd" class="button button-small border-green" value="添加链接" />
+            <input type="submit" class="button button-small border-yellow"  value="批量删除" onclick=" return confirm('确认全部删除吗?')" />
+        </div>
+        <table class="table table-hover">
+        	<tr>
+                <th width="10%">选择</th>
+                <th width="20%">链接名称</th>
+                <th width="50%">链接地址</th>
+                <th width="10%">操作</th>
+                <th width="10%">移动</th>
+            </tr>
+                {foreach from=$friendInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="frd_id[]" value="{$row.frd_id}" /></td>
+                <td>{$row.frd_name}</td>
+                <td><a href="{$row.frd_url}" target="_blank">{$row.frd_url}</a></td> 
+                <td>
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=Friendship&a=edit&frd_id={$row.frd_id}">修改</a> 
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=Friendship&a=del&frd_id={$row.frd_id}" onclick="return confirm('确认删除吗?')">删除</a>
+                </td>
+                <td>
+                    <a href="javascript:void(0)" onClick="moveUp(this)">上移</a>
+                    <a href="javascript:void(0)" onClick="moveDown(this)">下移</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+		<div class="panel-foot text-center">
+           
+        </div>
+    </div>
+    </form>
+    <br />
+    <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

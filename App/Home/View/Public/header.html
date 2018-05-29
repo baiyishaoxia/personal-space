@@ -1,0 +1,39 @@
+<style type="text/css">
+.keyword{
+    margin-left:200px; 
+}
+.submit{
+    margin-left: 12px;
+}
+</style>
+  <header>
+    <h1>蜗牛的家<font size="2px" style="margin-left: 20px">“给我一个小小的家，蜗牛的家，能挡风遮雨的地方，不必太大...”</font>
+    </h1>
+    <h2 style="background:gray; color:white; border-radius: 5px;width: 55%;">
+    <marquee direction='left' id='m' onmouseout=m.start() onMouseOver=m.stop() scrollamount='6' loop="-1">
+    公告：欢迎您的光临，本站所发布之文章皆为作者亲测通过，如有错误，欢迎通过各种方式指正。
+    (本站已于2018.3.20升级到php7,运行环境php7 + mysql5.7.14 + Apache2.4.23)
+    </marquee>
+    </h2>  
+      <div align="center">
+      <form action="index.php?p=Home&c=Article&a=search" method="POST">
+                    <input class="keyword" type="text" name="keyword" placeholder="搜索其实很简单" style="text-align:center;margin-left:-175px;width:210px;height:20px;background-color:transparent"/>
+                    <input class="submit" type="submit" value="整站搜索" style="border:1px #0A0A0A solid;font-size: 12px;background-color:#FFFFFF;border-radius:8px;margin-right:-180px;" />
+      </form>
+      </div>
+    <div class="logo"><a href="/"></a></div>
+    <nav id="topnav"><a href="/">首页</a>
+    {foreach from=$firstCate item='row'}
+    <a href="index.php?p=Home&c=Article&a=index&cate_id={$row.cate_id}#tipsArticle1{$row.cate_id}">{$row.cate_name}</a>
+    {/foreach}
+    <a href="index.php?p=Home&c=SinglePage&a=index&page_id=1">关于我</a>
+    {if $smarty.session.user_info.user_id|default:0 > 0}
+    <a style="font-size:12px;padding:0" href="index.php?p=Home&c=Index&a=index">欢迎您,{$smarty.session.user_info.user_name}&nbsp;</a>
+	<a style="font-size:12px;padding:0" href="index.php?p=Home&c=User&a=headimage">更换头像</a>
+    <a style="font-size:12px;padding:0" href="index.php?p=Home&c=User&a=logout">退出</a>
+    {else}
+    <a style="font-size:12px;padding:0" href="index.php?p=Home&c=User&a=login#tipslogin">登录&nbsp;</a>
+    <a style="font-size:12px;padding:0" href="index.php?p=Home&c=User&a=register#tipsregister">注册</a>
+    {/if}
+    </nav>
+  </header>

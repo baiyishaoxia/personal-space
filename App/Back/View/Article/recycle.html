@@ -1,0 +1,69 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnAdd按钮
+		$('#btnIndex').bind('click',function(){
+			// 设置“文章首页”链接
+			window.location.href = 'index.php?p=Back&c=Article&a=index';
+		});
+	});
+</script>
+
+<div class="admin">
+	<form  method="POST" name="dereform"> 
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>回收站列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="art_id[]" value="全选" />
+            <input type="button" id="btnIndex" class="button button-small border-green" value="文章首页" />
+            <input type="button" class="button button-small border-yellow"  value="批量彻底删除" onclick="if(confirm('确定要全部删除吗？'))realDelAll()" />
+			<input type="button"  class="button button-small border-blue" value="一键还原" onclick="if(confirm('确定要一键恢复吗？'))restore()"/>
+        </div>
+        <table class="table table-hover">
+        	<tr>
+                <th width="45">选择</th>
+                <th width="120">所属类别</th>
+                <th width="200">文章标题</th>
+				<th width="120">缩略图</th>
+                <th width="120">点击率</th>
+                <th width="180">发布时间</th>
+                <th width="100">操作</th>
+            </tr>
+            {foreach from=$artInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="art_id[]" value="{$row.art_id}" /></td>
+                <td>{$row.cate_name}</td>
+                <td>{$row.title|truncate:10}</td>
+				<td><img src="/Uploads/thumb/{$row.thumb}" width="60"/></td>
+                <td>{$row.hits}次</td>
+                <td>{($row.addtime)|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+                <td>
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=Article&a=recover&art_id={$row.art_id}">还原</a> 
+					<a class="button border-yellow button-little" href="index.php?p=Back&c=Article&a=realDel&art_id={$row.art_id}" onclick="return confirm('确认彻底删除吗?')">彻底删除</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+		<div class="panel-foot text-center">
+            {$strPage}
+        </div>
+    </div>
+    </form>
+<script type="text/javascript">
+/*一键还原*/
+function restore() {
+document.dereform.action="index.php?p=Back&c=Article&a=restore";
+document.dereform.submit();
+}
+/*批量删除*/
+function realDelAll() {
+document.dereform.action="index.php?p=Back&c=Article&a=realDelAll";
+document.dereform.submit();
+}
+</script>
+    <br />
+    <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

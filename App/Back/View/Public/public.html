@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>个人空间后台管理系统</title>
+    <link rel="icon" href="{$smarty.const.SITE_URL}/Public/ico/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{$smarty.const.CSS_DIR}/pintuer.css">
+    <link rel="stylesheet" href="{$smarty.const.CSS_DIR}/admin.css">
+    <script src="{$smarty.const.JS_DIR}/jquery.js"></script>
+    <script src="{$smarty.const.JS_DIR}/pintuer.js"></script>
+    <script src="{$smarty.const.JS_DIR}/respond.js"></script>
+    <script src="{$smarty.const.JS_DIR}/admin.js"></script>
+    <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
+    <link href="/favicon.ico" rel="bookmark icon" />
+</head> 
+<body>  
+<div class="lefter">
+    <div class="logo"><a href="#" target="_blank"><img src="{$smarty.const.IMAGES_DIR}/logo.png" class="radius" alt="后台管理系统" /></a></div>
+</div>
+<!--start-->
+<script type="text/javascript" src="http://www.daixiaorui.com/Public/js/jquery.min.js"></script>
+<style type="text/css">
+    .menu li a { display:block; width:100px; text-align:center; height:36px; line-height:36px; }
+    /*子集样式*/
+    .cur{ font-weight:bold; }
+    .curument { background:#ADFF2F; width:100%px;}
+    /*父级样式*/
+    .par{ background-color:#ADFF2F; font-weight:bold; font-size:16px; }
+    
+</style>
+<script language=javascript>
+            function expand(el)
+            {
+                childobj = document.getElementById("child" + el);
+
+                if (childobj.style.display == 'none')
+                {
+                    childobj.style.display = 'block';
+                }
+                else
+                {
+                    childobj.style.display = 'none';
+                }
+                return;
+            }
+</script>
+<!-- <ul class="nav nav-inline admin-nav"> -->
+<div class="righter nav-navicon" id="admin-nav">
+    <div class="mainer">
+        <div class="admin-navbar">
+            <span class="float-right">
+            	<a class="button button-little bg-main" href="/" target="_blank">前台首页</a>
+                <a class="button button-little bg-yellow" href="index.php?p=Back&c=Admin&a=logout">注销登录</a>
+				<input type="button" value="返回" onclick="fun()" class="button button-little bg-red">
+            </span>
+            <ul class="menu admin-nav" id="menu">
+                <li class="active"><a href="index.php?p=Back&c=Manage&a=index" > 开始</a>
+            <ul>
+<div style="width:200px; height:500px;overflow:scroll" id="menuchild">
+{foreach $auth_infoA as $k => $v}
+<table cellspacing='0' cellpadding='0' width='150' border='1'>
+    <tr height=22>
+        <td style="padding-left: 30px" id="menuparent">
+            <a  onclick="expand({$v.auth_id})" href="javascript:void(0);">{$v.auth_name}</a>
+        </td>
+    </tr>
+    <tr height=4><td></td></tr>
+</table>
+<table id="child{$v.auth_id}" style="display: none" cellspacing=0 cellpadding=0 
+       width=150 border=1>
+    {foreach $auth_infoB as $kk => $vv}
+
+    {if $vv.auth_pid === $v.auth_id}
+    <tr height=20>
+            <!--格式 p=Back&c=Category&a=index -->
+        <td width=150 align="center"><li class="curument"><a href="{$smarty.const.SITE_URL}/index.php?p=Back&c={$vv.auth_c}&a={$vv.auth_a}"  target="_self">{$vv.auth_name}</a>
+        </li>
+        </td>
+    </tr>
+    {/if}
+    {/foreach}
+</table>
+{/foreach}
+</div>
+                        <!-- <li><a href="index.php?p=Back&c=Category&a=index" >分类管理</a></li>
+					    <li><a href="index.php?p=Back&c=Article&a=index" >文章管理</a></li>
+						<li><a href="index.php?p=Back&c=Comment&a=index" >评论管理</a></li><li><a href="index.php?p=Back&c=SinglePage&a=index" >单页管理</a></li>
+						<li><a href="index.php?p=Back&c=Master&a=index" >站长管理</a></li>
+						<li><a href="index.php?p=Back&c=Friendship&a=index" >友情链接</a></li>
+						<li><a href="index.php?p=Back&c=User&a=index" >用户管理</a></li>
+                        <li><a href="index.php?p=Back&c=Banner&a=index" >Banner管理</a></li>
+                        <li><a href="index.php?p=Back&c=AuthManager&a=index" >权限管理</a></li> -->
+					</ul>
+                </li>
+            </ul>
+        </div>
+
+<!--start-->
+<script type="text/javascript">
+  var urlstr = location.href;
+  var urlstatus=false;
+  $("#menu a").each(function () {
+    if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+      $(this).addClass('cur'); urlstatus = true;
+    } else {
+       $(this).removeClass('cur');
+    }
+  });
+  if (!urlstatus) { $("#menu a").eq(0).addClass('cur'); }
+</script>
+<!--end-->
+
+        <div class="admin-bread">
+            <span>您好，{$smarty.session.adminInfo.admin_name}，欢迎您的光临。</span>
+            <ul class="bread">
+                <li><a href="index.php?p=Back&c=Manage&a=index" class="icon-home"> 开始</a></li>
+                <li>后台首页</li>
+            </ul>
+        </div>
+    </div>
+</div>

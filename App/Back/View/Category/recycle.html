@@ -1,0 +1,65 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnAdd按钮
+		$('#btnIndex').bind('click',function(){
+			// 设置“分类首页”链接
+			window.location.href = 'index.php?p=Back&c=Category&a=index';
+		});
+	});
+</script>
+
+<div class="admin">
+	<form  method="POST" name="dereform"> 
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>分类列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="cate_id[]" value="全选" />
+            <input type="button" id="btnIndex" class="button button-small border-green" value="分类首页" />
+            <input type="button" class="button button-small border-yellow"  value="批量彻底删除" onclick="if(confirm('确定要全部删除吗？'))realDelAll()" />
+			<input type="button"  class="button button-small border-blue" value="一键还原" onclick="if(confirm('确定要一键恢复吗？'))restore()"/>
+        </div>
+        <table class="table table-hover">
+        	<tr>
+                <th width="55">选择</th>
+                <th width="100">所属类别</th>
+                <th width="120">分类名称</th>
+				<th width="180">分类描述</th>
+                <th width="100">删除时间</th>
+            </tr>
+            {foreach from=$cateInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="cate_id[]" value="{$row.cate_id}" /></td>
+                <td>{$row.cate_pid}</td>
+                <td>{$row.cate_name}</td>
+				<td>{$row.cate_desc}</td>
+                <td>{if $row.del_time==0}暂未删除
+				    {else} {($row.del_time)|date_format:'%Y-%m-%d,%T'}
+					{/if}
+				</td>
+            </tr>
+            {/foreach}
+        </table>
+		<div class="panel-foot text-center">
+            {$strPage}
+        </div>
+    </div>
+    </form>
+<script type="text/javascript">
+/*一键还原*/
+function restore() {
+document.dereform.action="index.php?p=Back&c=Category&a=restore";
+document.dereform.submit();
+}
+/*批量删除*/
+function realDelAll() {
+document.dereform.action="index.php?p=Back&c=Category&a=realDelAll";
+document.dereform.submit();
+}
+</script>
+    <br />
+    <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

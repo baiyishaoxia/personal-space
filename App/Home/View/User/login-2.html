@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+{include file='../Public/meta.html'}
+<link href="{$smarty.const.CSS_DIR}/base.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/index.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/media.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="{$smarty.const.JS_DIR}/modernizr.js"></script>
+<![endif]-->
+<style type="text/css">
+  #denglu{
+  margin-left:90px;
+  }
+</style>
+</head>
+<body>
+<div class="ibody">
+  {include file='../Public/header.html'}
+  <article>
+    <div class="banner">
+      <ul class="texts">
+        <p>The best life is use of willing attitude, a happy-go-lucky life. </p>
+        <p>最好的生活是用心甘情愿的态度，过随遇而安的生活。</p>
+      </ul>
+    </div>
+    <div class="bloglist">
+      <h2>
+        <p><span>用户</span>登录</p>
+      </h2>
+      <div>
+        <form method="POST" action="index.php?p=Home&c=User&a=dealLogin">
+		<pre>
+          <p>用户名：<input type="text" name="user_name">*请填写您的用户名</p>          
+          <p>密  码：<input type="password" name="pass1">*请填写您的密码</p>            
+          <p><input type="submit" value="点击登录" id='denglu'></p>   
+		</pre>
+        </form>
+      </div>
+    </div>
+  </article>
+  <aside>
+    {include file='../Public/about.html'} <!--关于-->
+    <div class="about_c">
+      <p>网名：{$masterInfo.nickname}</p>
+      <p>职业：{$masterInfo.job} </p>
+      <p>籍贯：{$masterInfo.home}</p>
+      <p>电话：{$masterInfo.tel}</p>
+      <p>邮箱：{$masterInfo.email}</p>
+    </div>
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+{literal}
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>  
+{/literal}
+    <div class="tj_news">
+      <h2>
+        <p class="tj_t1">最新文章</p>
+      </h2>
+      <ul>
+        {foreach from=$newArt item='row'}
+        <li><a href="index.php?p=Home&c=Article&a=show&art_id={$row.art_id}">{$row.title}</a></li>
+        {/foreach}
+      </ul>
+      <h2>
+        <p class="tj_t2">推荐文章</p>
+      </h2>
+      <ul>
+        {foreach from=$rmdArtByHits item='row'}
+        <li><a href="index.php?p=Home&c=Article&a=show&art_id={$row.art_id}">{$row.title}</a></li>
+        {/foreach}
+      </ul>
+    </div>
+    <div class="links">
+      <h2>
+        <p>友情链接</p>
+      </h2>
+      <ul>
+	  {foreach from=$friendInfo item='row'}
+        <li><a href="{$row.frd_url}">{$row.frd_name}</a></li>
+	  {/foreach}
+      </ul>
+    </div>
+    {include file='../Public/copyright.html'}
+  </aside>
+  <script src="{$smarty.const.JS_DIR}/silder.js"></script>
+  <div class="clear"></div>
+  <!-- 清除浮动 --> 
+</div>
+</body>
+</html>

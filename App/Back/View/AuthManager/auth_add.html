@@ -1,0 +1,62 @@
+{include file='../Public/public.html'}
+<div class="admin">
+  <div class="tab">
+    <div class="tab-head"> <strong>权限管理</strong>
+      <ul class="tab-nav">
+        <li class="active"><a href="#tab-set">添加权限</a></li>
+      </ul>
+    </div>
+    <div class="tab-body"> <br />
+      <div class="tab-panel active" id="tab-set">
+        <form method="POST" class="form-x" action="index.php?p=Back&c=AuthManager&a=addAuth">
+          <div class="form-group">
+            <div class="label">
+              <label for="sitename">权限名称</label>
+            </div>
+            <div class="field">
+              <input type="text" class="input" id="name" name="auth_name" size="50" placeholder="权限名称" data-validate="required:请填写您的权限名称" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="label">
+              <label for="sitename">权限上级</label>
+            </div>
+            <div class="field">
+                <select name="auth_pid">
+                	  <option value="0">-请选择-</option>
+                      {foreach $auth_InfoA as $k => $v}
+                      <option value='{$v.auth_id}'> {$v.auth_name} </option>
+                      {/foreach}
+                </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="label">
+              <label for="sitename">权限控制器</label>
+            </div>
+            <div class="field">
+              <input type="text" class="input" id="name" name="auth_c" size="50"  />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label">
+              <label for="siteurl">权限操作方法</label>
+            </div>
+            <div class="field">
+              <input type="text" class="input" id="sort" name="auth_a" size="50"  />
+            </div>
+          </div>
+
+          <div class="form-button">
+            <button class="button bg-main" type="submit">提交</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div style='height:20px; border-bottom:1px #DDD solid'></div>
+  <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

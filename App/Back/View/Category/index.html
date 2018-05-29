@@ -1,0 +1,61 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnAdd按钮
+		$('#btnAdd').bind('click',function(){
+			// 添加分类的链接
+			window.location.href = 'index.php?p=Back&c=Category&a=add';
+		});
+	});
+	//定义页面载入事件
+    $(function(){
+        //获取btnAdd按钮
+        $('#btnRecycle').bind('click',function(){
+            // 设置“回收站”链接
+            window.location.href = 'index.php?p=Back&c=Category&a=recycle';
+        });
+    });
+</script>
+<div class="admin">
+	<form method="POST" action="index.php?p=Back&c=Category&a=delAll">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>分类列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="cate_id[]" value="全选" />
+            <input type="button" id="btnAdd" class="button button-small border-green" value="添加分类" />
+            <input type="submit" class="button button-small border-yellow" value="批量删除" onclick="return confirm('确认全部删除吗?')"/>
+			<input type="button" id="btnRecycle" class="button button-small border-blue" value="回收站" />
+        </div>
+        <table class="table table-hover">
+		     <tr>
+                <th width="95">选择</th>
+                <th width="220">所属类别</th>
+                <th width="260">分类名称</th>
+                <th width="*">分类描述</th>
+                <th width="100">操作</th>
+            </tr>
+            {foreach from=$cateInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="cate_id[]" value="{$row.cate_id}" /></td>
+                <td>{if $row.cate_pid == 0}  <font color="red">顶级分类</font> 
+				    {else} {$row.catename}    
+					{/if}
+				</td>
+                <td> {$row.cate_name|indent:(5*$row.level):'-'}
+                </td>
+                <td>{$row.cate_desc}</td>
+                <td>
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=Category&a=edit&cate_id={$row.cate_id}">修改</a> 
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=Category&a=del&cate_id={$row.cate_id}" onclick="return confirm('确认删除吗?')">删除</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+    </div>
+    </form>
+    <br />
+    <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

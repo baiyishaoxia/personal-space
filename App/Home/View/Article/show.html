@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+{include file='../Public/meta.html'}
+<link href="{$smarty.const.CSS_DIR}/base.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/style.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/media.css" rel="stylesheet">
+<style type="text/css">
+  .ds-replybox img {
+    float:left;
+    width:76px;
+    height:76px;
+  }
+  textarea {
+    box-shadow: none;
+    color: #999;
+    height: 54px;
+    margin: 0;
+    overflow: auto;
+    padding: 10px;
+    resize: none;
+    width: 80%;
+    margin-left:10px;
+  }
+  button {
+    margin-top:10px;
+    margin-left:85px;
+    font-size: 14px;
+    font-weight: bold;
+    height: 32px;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    transition: all 0.15s linear 0s;
+    width: 100px;
+  }
+  .otherlink dl {
+    display:block;
+    width:100%;
+    height:65px;
+    padding:20px 0;
+    border-bottom:1px #DEDEDE solid;
+  }
+  .otherlink dt {
+    float:left;
+  }
+  .otherlink h3 {
+    color:#D23;
+  }
+  .otherlink h3,.otherlink p {
+    line-height:22px;
+    text-indent:10px;
+  }
+  .otherlink .msg {
+     color:#333;
+  }
+  .otherlink .addtime {
+     color:#999;
+  }
+  .logform input {
+    width:140px;
+    height:30px;
+  }
+</style>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="ibody">
+{include file='../Public/header.html'}
+  <article>
+    <h2 class="about_h">您现在的位置是：<a href="/">首页</a>
+    {foreach from=$list item='row' key='key'}
+    ><a href="index.php?p=Home&c=Article&a=index&cate_id={$key}">{$row}</a>
+    {/foreach}
+	>{$artInfoById.title}
+    </h2>
+       <div class="index_about">
+      <a href="#" name="trips{$smarty.get.art_id}"></a>   
+      <h2 class="c_titile">{$artInfoById.title}</h2>
+      <p class="box_c"><span class="d_time">发布时间：{($artInfoById.addtime)|date_format:"%Y-%m-%d %T"}</span><span>编辑：{$artInfoById.author}</span><span>浏览（{$artInfoById.hits}）</span><span>评论（{$artInfoById.reply_nums}）</span></p>
+      <ul class="infos">
+        {$artInfoById.content}
+      </ul>
+      <div class="nextinfo">
+        <p>上一篇：<a href="index.php?p=Home&c=Article&a=show&art_id={$prev.art_id|default:$smarty.get.art_id}">{$prev.title|default:'已经是第一篇了,没有了!'}</a></p>
+        <p>下一篇：<a href="index.php?p=Home&c=Article&a=show&art_id={$next.art_id|default:$smarty.get.art_id}">{$next.title|default:'已经是最后一篇了,没有了!'}</a></p>
+      </div>
+      <div style="clear:both; height:10px;"></div>
+      <div class="otherlink">
+        <h2>评论列表</h2>
+
+        {foreach from=$cmtInfos item='row'}
+        <dl>
+          <dt>
+            <img width='50' height='50' src='/Uploads/user/{$row.user_image}'>
+          </dt>
+          <dd>
+            <h3>
+        {$row.cmt_user}
+            </h3>
+            <p class='msg'>{$row.cmt_content}</p>
+            <p class='addtime'>发布时间：{($row.cmt_time)|date_format:"%Y-%m-%d %T"}
+            &nbsp;|&nbsp;用户ID：{$row.cmt_id}&nbsp;|&nbsp;
+          </p>
+          </dd>
+        </dl>
+        {foreachelse}
+        <p>暂无任何评论,快来抢沙发吧!</p>
+        {/foreach}
+      </div>
+    </div>
+    <div style="clear:both; height:10px;"></div>
+      <div class="otherlink">
+        <h2>发布评论</h2>
+      </div>
+      <form action="index.php?p=Home&c=Article&a=comment" method="POST">
+      <textarea placeholder="说点什么吧…" title="Ctrl+Enter快捷提交" name="content"></textarea>
+      <input type="hidden" name="art_id" value="{$smarty.get.art_id}">
+      <button type="submit" class="ds-post-button">发布</button></form>
+   <div class="page">{$strPage}</div>
+  </article>
+  {include file='../Public/aside.html'}
+  <script src="js/silder.js"></script>
+  <div class="clear"></div>
+  <!-- 清除浮动 --> 
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{include file='../Public/public.html'}
+<script>
+    //定义页面载入事件
+    $(function(){
+        //获取btnAdd按钮
+        $('#btnRecycle').bind('click',function(){
+            // 设置“回收站”链接
+            window.location.href = 'index.php?p=Back&c=Comment&a=recycle';
+        });
+    });
+</script>
+<div class="admin">
+	<form action="index.php?p=Back&c=Comment&a=delAll" method="POST">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>评论列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="cmt_id[]" value="全选" />
+            <input type="submit" class="button button-small border-yellow"  value="批量删除" onclick=" return confirm('确认全部删除吗?')" />
+			<input type="button" id="btnRecycle" class="button button-small border-blue" value="黑评论" />
+        </div>
+        <table class="table table-hover">
+        	<tr>
+                <th width="45">选择</th>
+                <th width="120">来自文章</th>
+                <th width="100">用户名</th>
+				<th width="200">评论内容</th>
+                <th width="100">评论时间</th>
+                <th width="50">操作</th>
+            </tr>
+            {foreach from=$cmtInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="cmt_id[]" value="{$row.cmt_id}" /></td>
+                <td>{$row.title|truncate:10}</td> <!--截取标题前10个-->
+				<td>{$row.cmt_user}</td>
+                <td>{$row.cmt_content}</td>
+                <td>{($row.cmt_time)|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+				<td><a class="button border-yellow button-little" href="index.php?p=Back&c=Comment&a=del&cmt_id={$row.cmt_id}" onclick="return confirm('确认删除吗?')">删除</a>
+				</td>
+			</tr>
+			{/foreach}
+        </table>
+		<div class="panel-foot text-center">
+            {$strPage}
+        </div>
+    </div>
+    </form>
+    <br />
+    <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

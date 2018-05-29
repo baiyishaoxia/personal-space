@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+{include file='../Public/meta.html'}
+<link href="{$smarty.const.CSS_DIR}/base.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/style.css" rel="stylesheet">
+<link href="{$smarty.const.CSS_DIR}/media.css" rel="stylesheet">
+<style type="text/css">
+  .ds-replybox img {
+    float:left;
+    width:76px;
+    height:76px;
+  }
+  textarea {
+    box-shadow: none;
+    color: #999;
+    height: 54px;
+    margin: 0;
+    overflow: auto;
+    padding: 10px;
+    resize: none;
+    width: 80%;
+    margin-left:10px;
+  }
+  button {
+    margin-top:10px;
+    margin-left:85px;
+    font-size: 14px;
+    font-weight: bold;
+    height: 32px;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    transition: all 0.15s linear 0s;
+    width: 100px;
+  }
+  .otherlink dl {
+    display:block;
+    width:100%;
+    height:65px;
+    padding:20px 0;
+    border-bottom:1px #DEDEDE solid;
+  }
+  .otherlink dt {
+    float:left;
+  }
+  .otherlink h3 {
+    color:#D23;
+  }
+  .otherlink h3,.otherlink p {
+    line-height:22px;
+    text-indent:10px;
+  }
+  .otherlink .msg {
+     color:#333;
+  }
+  .otherlink .addtime {
+     color:#999;
+  }
+  .logform input {
+    width:140px;
+    height:30px;
+  }
+</style>
+  <script src="{$smarty.const.JS_DIR}/jquery.min.js"></script>
+  <script src='{$smarty.const.JS_DIR}/prefixfree.min.js'></script>
+  <style class="cp-pen-styles">
+  body {
+    background: radial-gradient(200% 100% at bottom center, #0070aa, #0b2570, #000035, #000);
+    background: radial-gradient(220% 105% at top center, #000 10%, #000035 40%, #0b2570 65%, #0070aa);
+    background-attachment: fixed;
+    overflow: hidden;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
+    }
+    100% {
+      transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(-360deg);
+    }
+  }
+  .stars {
+    transform: perspective(500px);
+    transform-style: preserve-3d;
+    position: absolute;
+    bottom: 0;
+    perspective-origin: 50% 100%;
+    left: 50%;
+    animation: rotate 90s infinite linear;
+  }
+
+  .star {
+    width: 2px;
+    height: 2px;
+    background: #F7F7B6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0 -300px;
+    transform: translate3d(0, 0, -300px);
+    backface-visibility: hidden;
+  }
+  </style>
+
+</head>
+<body>
+<!-- 背景图 -->
+<div class="stars" style=""></div>
+<!-- 正文 -->
+<div class="ibody" style="height:620px;z-index: -1;position:absolute;left: 200px">
+
+{include file='../Public/header.html'}
+  <article style="margin-bottom: 110px">
+    <div style="position: absolute;left:30px;top:220px;"> <img src="/Uploads/user/{$usermassage.user_image|default:$row.user_image}" width="130" height="130" style="float:left;border-radius: 50%">
+    </div>
+    <div style="margin-top: 50px;margin-left:200px;font-size:20px"> 
+              用户名：{$usermassage['user_name']}  <br />
+              用户邮箱：{$usermassage['user_email']|default:'未填写'} <br />
+              用户状态：{if $usermassage['user_type'] eq '0'} 正常 {else} <span style="color: red">已注销</span>{/if}<br />
+              注册时间：{$usermassage['user_time']|date_format:'%Y-%m-%d %H:%M:%S'} <br />
+              最近登录时间：{$usermassage['login_time']|date_format:'%Y-%m-%d %H:%M:%S'} <br />
+              
+    </div>
+       
+  </article>
+   <p style="color: yellow;font-size: 20px">最近访客</p>
+    <ul>
+       {foreach from=$laterUser item='row' name="i"}
+                 {if ($smarty.foreach.i.iteration %6) > 5 }  <br><br>{/if}
+       <a href="index.php?p=Home&c=Article&a=usershow&user_id={$row.user_id}">
+       <img src="/Uploads/user/{$row.user_thumb|default:$row.user_image}" width="40" height="40" style="float:left;border-radius: 50%"> 
+       </a>  
+       {/foreach}
+    </ul>
+
+  <script src="js/silder.js"></script>
+  <div class="clear"></div>
+</div>
+
+</body>
+<script>
+  $(document).ready(function () {
+      var stars = 800;
+      var $stars = $('.stars');
+      var r = 800;
+      for (var i = 0; i < stars; i++) {
+          if (window.CP.shouldStopExecution(1)) {
+              break;
+          }
+          var $star = $('<div/>').addClass('star');
+          $stars.append($star);
+      }
+      window.CP.exitedLoop(1);
+      $('.star').each(function () {
+          var cur = $(this);
+          var s = 0.2 + Math.random() * 1;
+          var curR = r + Math.random() * 300;
+          cur.css({
+              transformOrigin: '0 0 ' + curR + 'px',
+              transform: ' translate3d(0,0,-' + curR + 'px) rotateY(' + Math.random() * 360 + 'deg) rotateX(' + Math.random() * -50 + 'deg) scale(' + s + ',' + s + ')'
+          });
+      });
+  });
+
+  </script>
+  <script src='{$smarty.const.JS_DIR}/stopExecutionOnTimeout.js'></script>
+</html>

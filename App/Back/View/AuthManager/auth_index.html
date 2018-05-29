@@ -1,0 +1,68 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnAdd按钮
+		$('#btnAdd').bind('click',function(){
+			// 添加权限的链接
+			window.location.href = 'index.php?p=Back&c=AuthManager&a=addAuth';
+		});
+	});
+	//定义页面载入事件
+    $(function(){
+        //获取btnAdd按钮
+        $('#btnRecycle').bind('click',function(){
+            // 设置“回收站”链接
+            window.location.href = 'index.php?p=Back&c=AuthManager&a=recycleAuth';
+        });
+    });
+</script>
+<div class="admin">
+	<form method="POST" action="index.php?p=Back&c=AuthManager&a=delAllAuth">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>权限列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="auth_id[]" value="全选" />
+            <input type="button" id="btnAdd" class="button button-small border-green" value="添加权限" />
+            <input type="submit" class="button button-small border-yellow" value="批量删除" onclick="return confirm('确认全部删除吗?')"/>
+			<input type="button" id="btnRecycle" class="button button-small border-blue" value="回收站" />
+        </div>
+        <table class="table table-hover">
+		     <tr>
+		     	<th width="50">选择</th>
+                <th width="80">序号</th>
+                <th width="200">权限名称</th>
+                <th width="30">父id</th>
+                <th width="100">控制器</th>
+                <th width="100">操作方法</th>
+                <th width="100">全路径</th>
+                <th width="30">等级</th>
+                <th width="100">操作</th>
+            </tr>
+            {foreach $authInfo as $k  => $v}
+            <tr>
+                <td><input type="checkbox" name="auth_id[]" value="{$v.auth_id}" /></td>
+                <td>{$v.auth_id}</td>
+                <td>{$v.auth_name|indent:$v.auth_level:'----'}</td>
+                <td>{$v.auth_pid}</td>
+                <td>{$v.auth_c}</td>
+                <td>{$v.auth_a}</td>
+                <td>{$v.auth_path}</td>
+                <td>{$v.auth_level}</td>
+                <td>
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=AuthManager&a=editAuth&auth_id={$v.auth_id}">修改</a> 
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=AuthManager&a=delAuth&auth_id={$v.auth_id}" onclick="return confirm('确认删除吗?')">删除</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+        <div class="panel-foot text-center">
+            {$strPage}
+        </div>
+    </div>
+    </form>
+    <br />
+    <p class="text-right text-gray">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

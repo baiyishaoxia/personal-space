@@ -1,0 +1,56 @@
+{include file='../Public/public.html'}
+<script type="text/javascript" src='/App/Back/Public/ckeditor/ckeditor.js'>//引入在线编辑器</script> 
+<div class="admin">
+  <div class="tab">
+    <div class="tab-head"> <strong>关于管理员</strong>
+      <ul class="tab-nav">
+        <li class="active"><a href="#tab-set">修改管理员</a></li>
+      </ul>
+    </div>
+    <div class="tab-body"> <br />
+      <div class="tab-panel active" id="tab-set">
+        <form method="POST" class="form-x" action="index.php?p=Back&c=AuthManager&a=dealEditAdmin&admin_id={$adminInfo.admin_id}">
+          <div class="form-group">
+            <div class="label">
+              <label for="sitename">用户名</label>
+            </div>
+            <div class="field">
+              <input type="text" class="input" id="name" name="admin_name" size="50" placeholder="用户名称" data-validate="required:请填写您的用户名称" value="{$adminInfo.admin_name}" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="label">
+              <label for="sitename">用户密码</label>
+            </div>
+            <div class="field">
+              <input type="text" class="input" id="name" name="admin_pass" size="50" placeholder="用户密码" data-validate="required:请填写您的用户密码" value="{$adminInfo.admin_pass}" />
+            </div>
+          </div>
+		  <div class="form-group">
+            <div class="label">
+              <label for="sitename">充当的角色</label>
+            </div>
+               <select class="select" name="ad_role_id" >
+               	  <option value="0">Root权限</option>
+
+                  {foreach from=$RoleInfo item='row'}
+                  <option value="{$row.role_id}" {if $adminInfo.ad_role_id==$row.role_id}selected="selected"{/if}>
+                  {$row.role_name}
+                  </option>
+                  {/foreach}
+              </select>
+          </div>
+ 
+
+          <div class="form-button">
+            <button class="button bg-main" type="submit">提交</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div style='height:20px; border-bottom:1px #DDD solid'></div>
+  <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{include file='../Public/public.html'}
+<script>
+	//定义页面载入事件
+	$(function(){
+		//获取btnAdd按钮
+		$('#btnAdd').bind('click',function(){
+			// 设置“角色管理”链接
+			window.location.href = 'index.php?p=Back&c=AuthManager&a=addRole';
+		});
+	});
+    $(function(){
+        //获取btnAdd按钮
+        $('#btnAuthList').bind('click',function(){
+            // 设置“权限列表”链接
+            window.location.href = 'index.php?p=Back&c=AuthManager&a=authList';
+        });
+    });
+</script>
+<div class="admin">
+	<form action="index.php?p=Back&c=AuthManager&a=recycleRole" method="POST">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>角色管理</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="role_id[]" value="全选" />
+            <input type="button" id="btnAdd" class="button button-small border-green" value="添加角色" />
+            <input type="button" id="btnAuthList" class="button button-small border-blue " value="权限列表" />
+            <input type="submit" class="button button-small border-yellow"  value="回收站" onclick=" return confirm('确认进入回收站吗?')" />
+        </div>
+        <table class="table table-hover">
+        	<tr>
+                <th width="45">选择</th>
+                <th width="120">角色ID</th>
+                <th width="100">角色名称</th>
+                <th width="300">拥有的权限ids</th>
+                <th colspan="3">操作</th>
+            </tr>
+            {foreach from=$roleInfo item='row'}
+            <tr>
+                <td><input type="checkbox" name="role_id[]" value="{$row.role_id}" /></td>
+                <td>{$row.role_id}</td>
+                <td>{$row.role_name}</td>
+                <td>{$row.role_auth_ids|truncate:80}</td>
+                <td>
+                    <a class="button button-small border-green" href="index.php?p=Back&c=AuthManager&a=distribute&role_id={$row.role_id}" onclick="return confirm('确认要更改该用户权限吗?')">分配权限</a>
+                    <a class="button border-blue button-little" href="index.php?p=Back&c=AuthManager&a=editRole&role_id={$row.role_id}">修改</a> 
+                    <a class="button border-yellow button-little" href="index.php?p=Back&c=AuthManager&a=delRole&role_id={$row.role_id}" >删除</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+    </div>
+    </form>
+    <br />
+    <p class="text-right text-gray" style="float:right">基于<a class="text-gray" target="_blank" href="#">MVC框架</a>构建</p>
+</div>
+</body>
+</html>
