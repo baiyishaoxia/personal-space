@@ -17,13 +17,18 @@
 # 安装
 
 1、下载personal-space源码  [点击此处下载](https://codeload.github.com/baiyishaoxia/personal-space/zip/master)
+
 2、解压到目录
+
 3、配置web服务器(参见下面)
+
 4、浏览器打开输入刚配置的域名地址访问即可
+
 5、完成
 
 * 配置web服务器(Apache)
 
+```apache
   <VirtualHost *:80>
     ServerName www.personalspace.com
     DocumentRoot D:/php/personal-space
@@ -33,8 +38,10 @@
       Require local
     </Directory>
   </VirtualHost>
-  
+```
 * 配置web服务器(Nginx)
+
+```nginx
 server {
     server_name  localhost;
     root   /path/php/personal-space;
@@ -50,7 +57,7 @@ server {
         include        fastcgi_params;
     }
 }
-
+```
 # 帮助
 1、使用演示站点 演示站点前台 http://tzf.afu666.xyz:81
 
