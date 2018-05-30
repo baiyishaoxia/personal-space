@@ -59,7 +59,7 @@ server {
 }
 ```
 # 帮助
-1、使用演示站点 演示站点前台 http://tzf.afu666.xyz:81
+1、使用演示站点 演示站点前台 [进入personal-space](http://tzf.afu666.xyz:81)
 
 2、联系方式 QQ群: 173335823
 
