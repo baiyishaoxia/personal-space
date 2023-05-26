@@ -63,8 +63,12 @@ server {
 
 2、联系方式 QQ群: 173335823
 
-3、微信
+3、微信<br/>
 ![image](https://github.com/baiyishaoxia/personal-space/raw/option/screenshots/20180527012147.jpg)
+
+4、谢谢你的支持<br/>
+<img src="https://github.com/baiyishaoxia/personal-space/assets/34636159/f99a76d8-c765-4883-b812-4c74782b6baa" width="40%">
+
 
 # 运行效果
 ![image](https://github.com/baiyishaoxia/personal-space/raw/option/screenshots/Home.jpg)
